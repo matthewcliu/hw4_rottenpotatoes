@@ -10,7 +10,7 @@ Rottenpotatoes::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
-  match "movies/director" => 'movies#director', :as => 'director', :method => 'GET'
+  match "movies/similar_movies/:id" => 'movies#similar_movies', :as => 'similar_movies', :method => 'GET'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
@@ -53,6 +53,7 @@ Rottenpotatoes::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
+  root :to => 'movies#index'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

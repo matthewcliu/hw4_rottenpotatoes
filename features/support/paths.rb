@@ -24,6 +24,7 @@ module NavigationHelpers
       
     when /^the details page for "(.+)"$/
       query_string = $1
+      puts $1
       @movie = Movie.find_by_title(query_string)
       @id = @movie.id
       "/movies/#{@id}"
@@ -31,10 +32,8 @@ module NavigationHelpers
     when /^the Similar Movies page for "(.+)"$/
       query_string = $1
       @movie = Movie.find_by_title(query_string)
-      puts @movie
-      @name = @movie.director.gsub(/\s/,'+')
-      puts @name
-      "/movies/director?name=#{@name}"
+      @id = @movie.id
+     "/movies/similar_movies/#{@id}"
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
