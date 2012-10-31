@@ -15,6 +15,26 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+      
+    when /^the edit page for "(.+)"$/
+      query_string = $1
+      @movie = Movie.find_by_title(query_string)
+      @id = @movie.id
+      "/movies/#{@id}/edit"
+      
+    when /^the details page for "(.+)"$/
+      query_string = $1
+      @movie = Movie.find_by_title(query_string)
+      @id = @movie.id
+      "/movies/#{@id}"
+      
+    when /^the Similar Movies page for "(.+)"$/
+      query_string = $1
+      @movie = Movie.find_by_title(query_string)
+      puts @movie
+      @name = @movie.director.gsub(/\s/,'+')
+      puts @name
+      "/movies/director?name=#{@name}"
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -28,23 +48,6 @@ module NavigationHelpers
         self.send(path_components.push('path').join('_').to_sym)
       rescue NoMethodError, ArgumentError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-          "Now, go and add a mapping in #{__FILE__}"
-      end
-    end
-  end
-  def path_with_id(page_name, id)
-    case page_name
-
-  #    case page_name & id
-    when /^the edit\s?page/
-      "/movies/#{id}/edit"
-    else
-      begin
-        page_name =~ /^the (.*) page$/
-        path_components = $1.split(/\s+/)
-        self.send(path_components.push('path').join('_').to_sym)
-      rescue NoMethodError, ArgumentError
-        raise "FAIL. Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"
       end
     end

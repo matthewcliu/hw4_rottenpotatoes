@@ -41,11 +41,6 @@ When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
   with_scope(parent) { When "#{step}:", table_or_string }
 end
 
-When /^(?:|I )go to (.+) for (.+)$/ do |page_name, movie_name|
-  @id = 1
-  visit path_with_id(page_name, @id)
-end
-
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end

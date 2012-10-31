@@ -48,3 +48,11 @@ Then /I should see all of the movies/ do
   end
   #movies_in_database.should == rows_of_movies
 end
+
+Then /the (.+) of "(.+)" should be "(.+)"$/ do |field, title, value|
+  movie = Movie.find_by_title(title)
+  if movie["#{field}"] != value
+    flunk "The #{field} of #{title} is not #{value}."
+  end
+  
+end
